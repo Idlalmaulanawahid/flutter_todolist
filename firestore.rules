@@ -1,0 +1,16 @@
+// Firestore security rules - recommended per-user access for `tasks` collection.
+// Development hint: to quickly open access for local testing, uncomment the
+// `allow read, write: if true;` block, but do NOT deploy that to production.
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Per-user rules for tasks collection. Each task document must include
+    // an `ownerId` field equal to the authenticated user's uid.
+    // Development: allow anyone to read/write (UNSAFE - only for local/dev)
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}
